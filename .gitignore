@@ -1,0 +1,5 @@
+secrets.yaml
+.esphome
+aap_esl_keypad_interface.yaml
+aap_esl_keypad_monitor.yaml
+_*.*

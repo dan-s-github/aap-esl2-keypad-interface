@@ -1,0 +1,80 @@
+# Example configuration for the AAP ESL-2 Keypad Interface, monitor variant.
+#
+# Same hardware and wiring as aap_esl_keypad_interface.example.yaml, but
+# this device does not claim an address on the bus - it only listens.
+# Useful for observing bus traffic without presenting as a keypad.
+#
+# Copy this file to `aap_esl_keypad_monitor.yaml`, fill in your own zone
+# and keypad names, and create a `secrets.yaml` alongside it (see README.md
+# for the required keys). The copy is gitignored so your real layout stays
+# local.
+
+substitutions:
+  name: "esphome-aap-keypad-monitor"
+  friendly_name: ESPHome AAP Keypad Monitor
+  comment: "Control your Arrowhead Alarm system using ESPHome."
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  comment: ${comment}
+  name_add_mac_suffix: false
+
+esp32:
+  # AtomS3 Lite. If using an original Atom Lite instead, use `variant: esp32`
+  # and clock_pin: GPIO23 / data_pin: GPIO22 below.
+  variant: esp32s3
+  framework:
+    type: esp-idf
+
+logger:
+  level: DEBUG
+  initial_level: INFO
+  logs:
+    crow_alarm_panel: DEBUG
+
+external_components:
+  - components: [crow_alarm_panel]
+    source: github://dan-s-github/esphome-components
+
+crow_alarm_panel:
+  # AtomS3 Lite pins. On an original Atom Lite use GPIO23 / GPIO22.
+  clock_pin: GPIO7
+  data_pin: GPIO5
+  # No `address` set - this device only listens, it does not claim a
+  # keypad slot on the bus.
+
+  # Every keypad the panel knows about, physical or virtual. Only used so
+  # this component can identify bus traffic - it does not need to match
+  # the panel's own keypad naming.
+  keypads:
+    - name: "Keypad 1"
+      address: 0
+    - name: "ESPHome Keypad"
+      address: 5
+    - name: "IP Keypad"
+      address: 7
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  platform: esphome
+
+improv_serial:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: "esphome-aap-keypad-fallback"
+    password: !secret fallback_hotspot_password
+
+captive_portal:
+
+esp32_improv:
+  authorizer: none
+
+web_server:
