@@ -26,12 +26,20 @@ esp32:
 logger:
   level: DEBUG
   initial_level: INFO
-  logs:
-    crow_alarm_panel: DEBUG
+  # Leave crow_alarm_panel unset here; the `select` below lets you switch
+  # it to DEBUG at runtime instead of reflashing.
+  # logs:
+  #   crow_alarm_panel: DEBUG
 
 external_components:
   - components: [crow_alarm_panel]
     source: github://dan-s-github/esphome-components
+
+# Runtime log level control, so you can flip to DEBUG from Home Assistant
+# without reflashing.
+select:
+  platform: logger
+  name: "Log level"
 
 crow_alarm_panel:
   # AtomS3 Lite pins. On an original Atom Lite use GPIO23 / GPIO22.
@@ -125,6 +133,15 @@ switch:
     type: output
     output: 4
     name: "Output 4"
+
+  # Runtime toggle for raw frame logging - noisy, so it's off by default
+  # and left as a switch rather than a static logs: entry. Setting the
+  # logger above to VERBOSE (via the `select`) enables the same raw frame
+  # output, so this switch is only useful for isolating raw frames without
+  # the rest of VERBOSE's noise.
+  - platform: crow_alarm_panel
+    type: log_raw_frames
+    name: "Raw Frame Logging"
 
 api:
   encryption:
