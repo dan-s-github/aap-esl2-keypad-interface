@@ -72,6 +72,19 @@ Two options are provided for connecting to the bus:
 +--------------------+                +-----------------+
 ```
 
+## 3D-Printable Case
+
+An open-top OpenSCAD enclosure for the custom PCB lives in [`docs/case`](docs/case/):
+
+| Case | With PCB fitted (reference) |
+| --- | --- |
+| ![Case render](docs/case/case_render.png) | ![Case render with PCB](docs/case/case_render_with_pcb.png) |
+
+- [Latest STL (v5)](docs/case/AAP_Bus_Case_v5.stl?raw=true) — ready to slice and print.
+- [OpenSCAD source](https://github.com/dan-s-github/scad-pcb-enclosures/tree/main/cases/aap-bus-case) — parametric design, part of the [`scad-pcb-enclosures`](https://github.com/dan-s-github/scad-pcb-enclosures) multi-case repo.
+
+The board has no mounting holes, so it's held by 4 press-fit support posts plus 4 snap-fit edge clips instead of screws. **Print the case in PETG or ABS, not PLA** — the edge clips flex on insertion and PLA is too brittle for the strain involved (one already cracked in PLA during testing). This design is still a work in progress: the clips have only been test-printed once, and CN2 (the pluggable bus connector) doesn't yet have wall access if it turns out to need it — see the repo's `docs/TODO.md` for open items.
+
 ## Configuration
 
 Two example YAML configs are provided, both using the same PCB and wiring. Copy the one you need (dropping `.example`) and fill in your own zone/keypad names — the copy is gitignored so your real panel layout doesn't end up in the repo:
@@ -80,6 +93,8 @@ Two example YAML configs are provided, both using the same PCB and wiring. Copy 
 - [`aap_esl_keypad_monitor.example.yaml`](aap_esl_keypad_monitor.example.yaml) → `aap_esl_keypad_monitor.yaml` — passive/listen-only variant (no `address` claimed on the bus), useful for monitoring bus traffic without presenting as a keypad.
 
 Both use `clock_pin: GPIO7`, `data_pin: GPIO5` for the AtomS3 Lite (`GPIO23`/`GPIO22` instead if using an original Atom Lite, along with `esp32` instead of `esp32s3`) with the [`crow_alarm_panel`](https://github.com/dan-s-github/esphome-components) external component. For everything else — `keypads`, `zones`, passive monitor mode, outputs, bypass switches, the full option reference — see [the component's own README](https://github.com/dan-s-github/esphome-components/blob/main/components/crow_alarm_panel/README.md), which documents the schema in more detail than duplicated here.
+
+If you notice odd log lines or occasional retry/timing behavior after setting this up, check the component's [known quirks page](https://github.com/dan-s-github/esphome-components/blob/main/components/crow_alarm_panel/docs/known_quirks.md) first — it covers benign bus/panel quirks (retransmission noise, watchdog re-announces, `CURRENT_TIME` glitches, etc.) that are already understood and don't indicate a problem with this integration.
 
 Create a `secrets.yaml` (gitignored) alongside your copy with:
 
