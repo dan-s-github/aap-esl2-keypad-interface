@@ -57,7 +57,7 @@ The top side mounts the AtomS3 Lite and carries the buck converter and level shi
 Two options are provided for connecting to the bus:
 
 - `CN1` — a 4-pin screw terminal (Phoenix Contact 1861959), for connecting bare wires directly.
-- `CN2` — a 5-pin pluggable connector (Molex 22035055), for a crimped/pre-made harness — compatible with AAP's Keypad Bus Connection Cables. [ARR14](https://www.aap.co.nz/shop/Alarm+Systems/Keypads/ARR14.html), [ARR15](https://www.aap.co.nz/shop/Alarm+Systems/Keypads/ARR15.html)
+- `CN2` — a 5-pin pluggable connector (Molex 22035055), for a crimped/pre-made harness — compatible with AAP's Keypad Bus Connection Cables. [ARR14](https://www.aap.co.nz/shop/Alarm+Systems/Keypads/ARR14.html), [ARR15](https://www.aap.co.nz/shop/Alarm+Systems/Keypads/ARR15.html), or the cheaper [AliExpress 5-pin, double-head cable](https://www.aliexpress.com/item/1005005383036734.html)
 
 ### Connection diagram
 
