@@ -80,7 +80,7 @@ An open-top OpenSCAD enclosure for the custom PCB lives in [`docs/case`](docs/ca
 | --- | --- |
 | ![Case render](docs/case/case_render.png) | ![Case render with PCB](docs/case/case_render_with_pcb.png) |
 
-- [Latest STL (v5)](docs/case/AAP_Bus_Case_v5.stl?raw=true) — ready to slice and print.
+- [Latest STL (v5)](docs/case/AAP_Bus_Case_v5.stl) — view in GitHub's 3D preview, or grab the [zipped download](docs/case/AAP_Bus_Case_v5.stl.zip?raw=true) — ready to slice and print.
 - [OpenSCAD source](https://github.com/dan-s-github/scad-pcb-enclosures/tree/main/cases/aap-bus-case) — parametric design, part of the [`scad-pcb-enclosures`](https://github.com/dan-s-github/scad-pcb-enclosures) multi-case repo.
 
 The board has no mounting holes, so it's held by 4 press-fit support posts plus 4 snap-fit edge clips instead of screws. **Print the case in PETG or ABS, not PLA** — the edge clips flex on insertion and PLA is too brittle for the strain involved (one already cracked in PLA during testing). This design is still a work in progress: the clips have only been test-printed once, and CN2 (the pluggable bus connector) doesn't yet have wall access if it turns out to need it — see the repo's `docs/TODO.md` for open items.
