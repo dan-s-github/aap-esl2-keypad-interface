@@ -59,6 +59,12 @@ Two options are provided for connecting to the bus:
 - `CN1` — a 4-pin screw terminal (Phoenix Contact 1861959), for connecting bare wires directly.
 - `CN2` — a 5-pin pluggable connector (Molex 22035055), for a crimped/pre-made harness — compatible with AAP's Keypad Bus Connection Cables. [ARR14](https://www.aap.co.nz/shop/Alarm+Systems/Keypads/ARR14.html), [ARR15](https://www.aap.co.nz/shop/Alarm+Systems/Keypads/ARR15.html), or the cheaper [AliExpress 5-pin, double-head cable](https://www.aliexpress.com/item/1005005383036734.html)
 
+Some AliExpress listings let you pick the wiring type — choose **straight-through** (pin 1 to pin 1), not rollover/mirrored (pin 1 to pin 5). Not all sellers offer that option though, so you may still receive a rollover cable and need to depin and re-seat the wires to match before plugging in:
+
+| Correct (`cable_ok.png`) | Wrong (`cable_nok.png`) |
+| --- | --- |
+| ![Cable wired correctly](docs/cable_ok.png) | ![Cable wired incorrectly](docs/cable_nok.png) |
+
 ### Connection diagram
 
 ```txt
