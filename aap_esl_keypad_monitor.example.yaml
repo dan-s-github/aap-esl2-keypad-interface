@@ -73,6 +73,28 @@ crow_alarm_panel:
     - name: "IP Keypad"
       address: 7
 
+# Panel fault indicators, decoded from the panel's status broadcast - these
+# need no bus address, so they work in listen-only mode. The panel only
+# broadcasts on change, so turn-off can lag by a few minutes.
+binary_sensor:
+  # On while the panel reports a current fault.
+  - platform: crow_alarm_panel
+    type: trouble
+    name: "Alarm Trouble"
+  # Mirrors the keypad TROUBLE light: stays on until the fault is viewed on
+  # a keypad (MEM) or the system is armed.
+  - platform: crow_alarm_panel
+    type: trouble_latched
+    name: "Alarm Trouble Latched"
+  # Mains (AC) power lost - keypad fault `AC`.
+  - platform: crow_alarm_panel
+    type: mains_fault
+    name: "Alarm Mains Fault"
+  # Backup battery low or missing - keypad fault `BATT`.
+  - platform: crow_alarm_panel
+    type: battery_fault
+    name: "Alarm Battery Fault"
+
 api:
   encryption:
     key: !secret api_encryption_key
