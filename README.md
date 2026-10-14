@@ -95,8 +95,8 @@ The board has no mounting holes, so it's held by 4 press-fit support posts plus 
 
 Two example YAML configs are provided, both using the same PCB and wiring. Copy the one you need (dropping `.example`) and fill in your own zone/keypad names — the copy is gitignored so your real panel layout doesn't end up in the repo:
 
-- [`aap_esl_keypad_interface.example.yaml`](aap_esl_keypad_interface.example.yaml) → `aap_esl_keypad_interface.yaml` — registers as an active keypad on the bus (`address: 5`) and exposes arm/disarm/stay, zone sensors, and switch outputs to Home Assistant.
-- [`aap_esl_keypad_monitor.example.yaml`](aap_esl_keypad_monitor.example.yaml) → `aap_esl_keypad_monitor.yaml` — passive/listen-only variant (no `address` claimed on the bus), useful for monitoring bus traffic without presenting as a keypad.
+- [`aap_esl_keypad_interface.example.yaml`](aap_esl_keypad_interface.example.yaml) → `aap_esl_keypad_interface.yaml` — registers as an active keypad on the bus (`address: 5`) and exposes arm/disarm/stay, zone sensors, panel fault sensors (trouble, mains, battery), and switch outputs to Home Assistant.
+- [`aap_esl_keypad_monitor.example.yaml`](aap_esl_keypad_monitor.example.yaml) → `aap_esl_keypad_monitor.yaml` — passive/listen-only variant (no `address` claimed on the bus), useful for monitoring bus traffic and panel fault sensors without presenting as a keypad.
 
 Both use `clock_pin: GPIO7`, `data_pin: GPIO5` for the AtomS3 Lite (`GPIO23`/`GPIO22` instead if using an original Atom Lite, along with `esp32` instead of `esp32s3`) with the [`crow_alarm_panel`](https://github.com/dan-s-github/esphome-components) external component. For everything else — `keypads`, `zones`, passive monitor mode, outputs, bypass switches, the full option reference — see [the component's own README](https://github.com/dan-s-github/esphome-components/blob/main/components/crow_alarm_panel/README.md), which documents the schema in more detail than duplicated here.
 
@@ -127,7 +127,7 @@ uv run esphome run aap_esl_keypad_interface.yaml
 **ESPHome Builder (Home Assistant add-on)** — no local ESPHome install needed:
 
 1. In Home Assistant, open the ESPHome dashboard and `+ NEW DEVICE` to create a device and flash the stub firmware over USB (this sets up `wifi`, `api`, and `ota` for you, with the encryption key stored by the add-on).
-2. Once the device shows up and adopts, `EDIT` it and replace the generated YAML's `esp32`, `logger`, `external_components`, and `crow_alarm_panel`/`text_sensor`/`alarm_control_panel`/`button`/`switch` blocks with the equivalent sections from [`aap_esl_keypad_interface.example.yaml`](aap_esl_keypad_interface.example.yaml), filled in with your own zones/keypads.
+2. Once the device shows up and adopts, `EDIT` it and replace the generated YAML's `esp32`, `logger`, `external_components`, and `crow_alarm_panel`/`text_sensor`/`binary_sensor`/`alarm_control_panel`/`button`/`switch` blocks with the equivalent sections from [`aap_esl_keypad_interface.example.yaml`](aap_esl_keypad_interface.example.yaml), filled in with your own zones/keypads.
 3. Leave the wizard-generated `wifi`/`api`/`ota` sections as-is — no need to bring in `secrets.yaml` since the add-on manages Wi-Fi credentials and the encryption key itself.
 4. `INSTALL` to push the update over-the-air.
 
